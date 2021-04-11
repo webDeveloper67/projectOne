@@ -1,25 +1,47 @@
-import logo from './logo.svg';
+import React, {useState, useRef, useEffect} from 'react';
 import './App.css';
+import CreateNewItem from './components/CreateNewItem'
+import DeleteLastItem from './components/DeleteLastItem';
+import ItemList from './components/ItemList';
 
-function App() {
+
+const App = () => {
+  const [items, setItems] = useState([]);
+
+  // Helper Function
+  const usePrevious = (value) => {
+    const ref = useRef();
+    useEffect(() => {
+      ref.current = value;
+    }, [value]);
+    return ref.current;
+}
+const prevItem = usePrevious({items, setItems})
+
+const handleAddItem = item => {
+  setItems([...prevItem, item])
+};
+
+
+
+
+
+  console.log(prevItem, 'prevItem')
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1 className="App-title">ReactND - Coding Practice</h1>
       </header>
+      <h2>Shopping List</h2>
+      <CreateNewItem onAddItem={handleAddItem} />
     </div>
   );
 }
+
+{/* <DeleteLastItem
+onDeleteLastItem={this.handleDeleteLastItem}
+buttonDisabled={this.noItemsFound()}
+/>
+<ItemList items={this.state.items} /> */}
 
 export default App;
