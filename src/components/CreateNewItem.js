@@ -10,9 +10,7 @@ const CreateNewItem = ({onAddItem}) => {
 
   const addItem = e => {
     e.preventDefault();
-    console.log(value)
     onAddItem(value)
-    console.log(onAddItem(value))
   }
 
   const inputIsEmpty = () => {

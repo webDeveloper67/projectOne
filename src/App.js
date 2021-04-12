@@ -16,14 +16,20 @@ const App = () => {
     }, [value]);
     return ref.current;
 }
-const prevItem = usePrevious({items, setItems})
+const prevItem = usePrevious(items)
 
 const handleAddItem = item => {
-  setItems([...prevItem, item])
+  setItems((prevItem) => [...prevItem, item]);
 };
 
 
+const handleDeleteLastItem = e => {
+  setItems((prevItem) => [items.slice(0, -1)])
+}
 
+const noItemsFound = () => {
+  return items.length === 0
+}
 
 
   console.log(prevItem, 'prevItem')
@@ -34,14 +40,15 @@ const handleAddItem = item => {
       </header>
       <h2>Shopping List</h2>
       <CreateNewItem onAddItem={handleAddItem} />
+      <DeleteLastItem
+        onDeleteLastItem={handleDeleteLastItem}
+        buttonDisabled={noItemsFound()}
+      />
+      <ItemList items={items} />
     </div>
   );
 }
 
-{/* <DeleteLastItem
-onDeleteLastItem={this.handleDeleteLastItem}
-buttonDisabled={this.noItemsFound()}
-/>
-<ItemList items={this.state.items} /> */}
+
 
 export default App;

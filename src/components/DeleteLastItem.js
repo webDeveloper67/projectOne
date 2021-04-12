@@ -1,8 +1,13 @@
 import React from 'react'
 
-const DeleteLastItem = () => {
+const DeleteLastItem = ({onDeleteLastItem, buttonDisabled}) => {
+  const handleDeleteLastItem = (e) => {
+    onDeleteLastItem()
+  }
   return(
-    <div>Delete Last Item</div>
+    <button onClick={handleDeleteLastItem} disabled={buttonDisabled}>
+      Delete Last Item
+    </button>
   )
 }
 
